@@ -5,20 +5,30 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "@sailshq/lodash": "^3.10.3",
+    "async": "2.0.1",
     "sails": "^1.0.2",
     "sails-hook-orm": "^2.0.0-16",
     "sails-hook-sockets": "^1.4.0",
-    "@sailshq/lodash": "^3.10.3",
-    "async": "2.0.1"
+    "sails-mongo": "^1.0.1"
   },
   "devDependencies": {
-    "@sailshq/eslint": "^4.19.3"
+    "@sailshq/eslint": "^4.19.3",
+    "jest": "^23.6.0",
+    "supertest": "^3.3.0"
   },
   "scripts": {
     "start": "NODE_ENV=production node app.js",
-    "test": "npm run lint && npm run custom-tests && echo 'Done.'",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "eslint . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/jest/lifecycle.js",
+    "testMatch": [
+      "<rootDir>/test/**/?(*.)(spec|test).js?(x)"
+    ]
   },
   "main": "app.js",
   "repository": {

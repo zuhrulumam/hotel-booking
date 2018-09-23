@@ -6,9 +6,29 @@
  */
 
 module.exports = {
+  // Change Booking status 
+  changeStatus: async (req, res, next) => {
+    const data = req.body;
+
+    let booking = await Booking.update({
+        id: data._id
+      }, {
+        /* model */
+        status: data.status
+      })
+      .fetch();
+
+    return res.json(booking[0]);
+
+
+  },
+
   // Create Booking
   createBooking: async (req, res, next) => {
     const data = req.body;
+
+    // check if room available (from quantity to date)
+
 
     let createdBooking = await Booking.create({
         user_id: data.user_id,

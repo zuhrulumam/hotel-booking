@@ -1,11 +1,14 @@
 const request = require('supertest');
 
+let date_start = new Date();
+let date_end = new Date();
+
 let _id;
 let model = {
   user: "test",
   room: "test",
-  date_start: "test",
-  date_end: "test",
+  date_start,
+  date_end: date_end.setDate(date_start.getDate() + 3),
 }
 
 describe('Booking Controller', () => {
@@ -97,6 +100,30 @@ describe('Booking Controller', () => {
       }
 
     );
+  });
+
+  describe('Change Status Booking To Done', () => {
+    it('should change status booking to done', async () => {
+      model.status = 'done';
+      let res = await request('http://localhost:1337')
+        .put('/booking-status')
+        .send(model);
+
+      expect(res.statusCode).toBe(200);
+      expect(res.body.status).toEqual(model.status);
+    });
+  });
+
+  describe('Cancel A Booking', () => {
+    it('should change status booking to canceled', async () => {
+      model.status = 'canceled';
+      let res = await request('http://localhost:1337')
+        .put('/booking-status')
+        .send(model);
+
+      expect(res.statusCode).toBe(200);
+      expect(res.body.status).toEqual(model.status);
+    });
   });
 
   describe('Delete Booking By Id', () => {

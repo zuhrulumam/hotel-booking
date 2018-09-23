@@ -22,12 +22,27 @@ module.exports = {
     },
 
     date_start: {
-      type: 'string'
+      type: 'ref',
+      columnType: 'datetime'
     },
 
     date_end: {
-      type: 'string'
+      type: 'ref',
+      columnType: 'datetime'
+    },
+
+    status: {
+      type: 'string',
+      isIn: ['pending', 'done', 'canceled'],
+      defaultsTo: 'pending'
+    },
+
+    quantity: {
+      type: 'number',
+      defaultsTo: 1
     }
+
+
 
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗

@@ -70,6 +70,7 @@ module.exports.routes = {
    ***************************************************************************/
 
   'POST /bookings': 'BookingController.createBooking',
+  'PUT /booking-status': 'BookingController.changeStatus',
   'GET /bookings/:id?': 'BookingController.getBooking',
   'PUT /bookings': 'BookingController.updateBooking',
   'DELETE /bookings/:id': 'BookingController.deleteBooking',

@@ -35,6 +35,11 @@ module.exports = {
       required: true
     },
 
+    room_booking: {
+      collection: 'Booking',
+      via: 'room_id'
+    },
+
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝

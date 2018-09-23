@@ -14,11 +14,11 @@ module.exports = {
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
     user_id: {
-      type: 'string'
+      model: 'User'
     },
 
     room_id: {
-      type: 'string'
+      model: 'Room'
     },
 
     date_start: {

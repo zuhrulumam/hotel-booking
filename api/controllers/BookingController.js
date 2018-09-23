@@ -28,8 +28,10 @@ module.exports = {
 
     if (id) {
       let booking = await Booking.findOne({
-        id
-      });
+          id
+        })
+        .populate('room_id')
+        .populate('user_id');
 
       return res.json(booking);
     }
@@ -44,7 +46,9 @@ module.exports = {
     let countPage = await Booking.count();
     countPage = Math.ceil(countPage / parameter.limit);
 
-    let bookings = await Booking.find(parameter);
+    let bookings = await Booking.find(parameter)
+      .populate('room_id')
+      .populate('user_id');
 
     return res.json({
       data: bookings,

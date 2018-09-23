@@ -23,9 +23,13 @@ module.exports = {
     role: {
       type: 'string',
       isIn: ['admin', 'user', 'guest'],
-      defaultsTo: 'admin'
+      defaultsTo: 'user'
     },
 
+    user_booking: {
+      collection: 'Booking',
+      via: 'user_id',
+    },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

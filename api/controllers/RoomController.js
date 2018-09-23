@@ -27,7 +27,7 @@ module.exports = {
     if (id) {
       let room = await Room.findOne({
         id
-      });
+      }).populate('type');
 
       return res.json(room);
     }
@@ -42,7 +42,7 @@ module.exports = {
     let countPage = await Room.count();
     countPage = Math.ceil(countPage / parameter.limit);
 
-    let rooms = await Room.find(parameter);
+    let rooms = await Room.find(parameter).populate('type');
 
     return res.json({
       data: rooms,

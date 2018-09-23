@@ -4,7 +4,7 @@ let _id;
 
 // model of table
 let model = {
-  type: 'Suite 1',
+  type_name: 'Suite 1 For Room Testing',
   price: 27000
 };
 
@@ -24,6 +24,15 @@ describe('Room Controller', () => {
 
   describe('Create One Room', () => {
     it('should return empty', async () => {
+
+        let roomType = await request('http://localhost:1337')
+          .post('/room-types')
+          .send({
+            room_type: model.type_name
+          });
+
+        model.type = roomType.body.id;
+
         let res = await request('http://localhost:1337')
           .post('/rooms')
           .send(model)
@@ -31,7 +40,7 @@ describe('Room Controller', () => {
         _id = res.body.id;
 
         expect(res.statusCode).toBe(201)
-        expect(res.body.type).toEqual(model.type)
+        expect(res.body.price).toEqual(model.price)
       }
 
     );
@@ -40,11 +49,11 @@ describe('Room Controller', () => {
   describe('Get One Room By Id', () => {
     it('should return one Room', async () => {
         let res = await request('http://localhost:1337')
-          .get('/rooms/' + _id)
-
+          .get('/rooms/' + _id);
 
         expect(res.statusCode).toBe(200)
-        expect(res.body.type).toEqual(model.type)
+        expect(res.body.price).toEqual(model.price)
+        expect(res.body.type.room_type).toEqual(model.type_name)
       }
 
     );
@@ -52,14 +61,14 @@ describe('Room Controller', () => {
 
   describe('Update Room', () => {
     it('should return updated Room', async () => {
-        model.type = "Suite 1 Updated";
+        model.price = 290000;
         model._id = _id;
         let res = await request('http://localhost:1337')
           .put('/rooms')
           .send(model);
 
         expect(res.statusCode).toBe(200)
-        expect(res.body.type).toEqual(model.type)
+        expect(res.body.price).toEqual(model.price)
       }
 
     );
@@ -67,11 +76,15 @@ describe('Room Controller', () => {
 
   describe('Delete Room By Id', () => {
     it('should return deleted Room', async () => {
+
+        let delRoomType = await request('http://localhost:1337')
+          .delete('/room-types/' + model.type)
+
         let res = await request('http://localhost:1337')
           .delete('/rooms/' + _id)
 
         expect(res.statusCode).toBe(200)
-        expect(res.body.type).toEqual(model.type)
+        expect(res.body.price).toEqual(model.price)
       }
 
     );

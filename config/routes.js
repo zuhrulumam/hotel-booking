@@ -65,6 +65,15 @@ module.exports.routes = {
   'DELETE /user-profiles/:id': 'UserProfileController.deleteUserProfile',
 
 
+  /***************************************************************************
+   *                                Booking                                     *
+   ***************************************************************************/
+
+  'POST /bookings': 'BookingController.createBooking',
+  'GET /bookings/:id?': 'BookingController.getBooking',
+  'PUT /bookings': 'BookingController.updateBooking',
+  'DELETE /bookings/:id': 'BookingController.deleteBooking',
+
 
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗

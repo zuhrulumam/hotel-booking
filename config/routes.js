@@ -55,6 +55,16 @@ module.exports.routes = {
   'PUT /users': 'UserController.updateUser',
   'DELETE /users/:id': 'UserController.deleteUser',
 
+  /***************************************************************************
+   *                                UserProfile                                     *
+   ***************************************************************************/
+
+  'POST /user-profiles': 'UserProfileController.createUserProfile',
+  'GET /user-profiles/:id?': 'UserProfileController.getUserProfile',
+  'PUT /user-profiles': 'UserProfileController.updateUserProfile',
+  'DELETE /user-profiles/:id': 'UserProfileController.deleteUserProfile',
+
+
 
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗

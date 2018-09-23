@@ -24,12 +24,6 @@
     "lint": "eslint . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
   },
-  "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/jest/lifecycle.js",
-    "testMatch": [
-      "<rootDir>/test/**/?(*.)(spec|test).js?(x)"
-    ]
-  },
   "main": "app.js",
   "repository": {
     "type": "git",

@@ -36,6 +36,16 @@ module.exports.routes = {
   'PUT /room-types': 'RoomTypeController.updateRoomType',
   'DELETE /room-types/:id': 'RoomTypeController.deleteRoomType',
 
+  /***************************************************************************
+   *                                Room                                     *
+   ***************************************************************************/
+
+  'POST /rooms': 'RoomController.createRoom',
+  'GET /rooms/:id?': 'RoomController.getRoom',
+  'PUT /rooms': 'RoomController.updateRoom',
+  'DELETE /rooms/:id': 'RoomController.deleteRoom',
+
+
 
 
 

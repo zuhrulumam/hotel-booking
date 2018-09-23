@@ -1,34 +1,35 @@
 /**
- * RoomTypeController
+ * RoomController
  *
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
 module.exports = {
-  // Create RoomType
-  createRoomType: async (req, res, next) => {
+  // Create Room
+  createRoom: async (req, res, next) => {
     const data = req.body;
 
-    let createdRoomType = await RoomType.create({
-        room_type: data.room_type,
+    let createdRoom = await Room.create({
+        type: data.type,
+        price: data.price
       })
       .fetch();
 
     res.status(201);
-    return res.json(createdRoomType);
+    return res.json(createdRoom);
   },
 
-  // Get RoomType
-  getRoomType: async (req, res, next) => {
+  // Get Room
+  getRoom: async (req, res, next) => {
     const id = req.params.id;
 
     if (id) {
-      let roomType = await RoomType.findOne({
+      let room = await Room.findOne({
         id
       });
 
-      return res.json(roomType);
+      return res.json(room);
     }
 
     let parameter = {};
@@ -38,35 +39,37 @@ module.exports = {
     parameter.skip = parseInt(queries.offset) || 0;
     parameter.sort = queries.sort || 'createdAt DESC';
 
-    let countPage = await RoomType.count();
+    let countPage = await Room.count();
     countPage = Math.ceil(countPage / parameter.limit);
 
-    let roomTypes = await RoomType.find(parameter);
+    let rooms = await Room.find(parameter);
 
     return res.json({
-      data: roomTypes,
+      data: rooms,
       totalPage: countPage,
     });
-
   },
 
-  // Update RoomType
-  updateRoomType: async (req, res, next) => {
+  // Update Room
+  updateRoom: async (req, res, next) => {
     const data = req.body;
 
-    let roomType = await RoomType.update({
+    let room = await Room.update({
         id: data._id
       }, {
-        room_type: data.room_type
+        /* model */
+        type: data.type,
+        price: data.price,
+        description: data.description,
+        images: data.images
       })
       .fetch();
 
-    return res.json(roomType[0]);
-
+    return res.json(room[0]);
   },
 
-  // Delete RoomType
-  deleteRoomType: async (req, res, next) => {
+  // Delete Room
+  deleteRoom: async (req, res, next) => {
     const id = req.param('id');
 
     if (!id) {
@@ -75,11 +78,11 @@ module.exports = {
       });
     }
 
-    let roomType = await RoomType.destroy({
+    let room = await Room.destroy({
         id
       })
       .fetch();
 
-    return res.json(roomType[0]);
+    return res.json(room[0]);
   },
 };

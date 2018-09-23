@@ -1,60 +1,3 @@
-// let id;
-// let room_type = "Suite 1";
-
-// describe("Find All Room", () => {
-//   it('should return array', async () => {
-
-//     let data = await RoomType.find();
-
-//     expect(data).toEqual([]);
-
-//   })
-// });
-
-// describe("Insert Room Type", () => {
-//   it('should return room type', async () => {
-
-//     let createdRoomType = await RoomType.create({
-//         room_type,
-//       })
-//       .fetch();
-
-//     id = createdRoomType.id;
-
-//     expect(createdRoomType.room_type).toEqual(room_type);
-//   })
-
-// });
-
-// describe("Find By Id", () => {
-//   it('should return room type by id', async () => {
-
-//     let roomType = await RoomType.findOne({
-//       id
-//     });
-
-//     expect(roomType.room_type).toEqual(room_type);
-//   });
-// });
-
-// describe("Update By Id", () => {
-//   it('should update room type by id', async () => {
-
-//     // room_type = "Suite 1 Update";
-
-//     let updatedRoomType = await RoomType.update({
-//         room_type
-//       })
-//       .set({
-//         room_type: 'Suite 1 Update'
-//       })
-//       .fetch();
-
-//     expect(updatedRoomType.room_type).toEqual('Suite 1 Update');
-//   });
-// });
-
-
 const request = require('supertest');
 
 let _id;
@@ -63,7 +6,7 @@ describe('Room Type Controller', () => {
 
   describe('Get All', () => {
     it('should return empty', async () => {
-        let res = await request(sails.hooks.http.app)
+        let res = await request('http://localhost:1337')
           .get('/room-types');
 
         // console.debug(res)
@@ -76,7 +19,7 @@ describe('Room Type Controller', () => {
 
   describe('Create One Room Type', () => {
     it('should return empty', async () => {
-        let res = await request(sails.hooks.http.app)
+        let res = await request('http://localhost:1337')
           .post('/room-types')
           .send({
             room_type
@@ -94,7 +37,7 @@ describe('Room Type Controller', () => {
 
   describe('Get One Room Type By Id', () => {
     it('should return one room type', async () => {
-        let res = await request(sails.hooks.http.app)
+        let res = await request('http://localhost:1337')
           .get('/room-types/' + _id)
 
         // console.debug(res)
@@ -108,7 +51,7 @@ describe('Room Type Controller', () => {
   describe('Update Room Type', () => {
     it('should return updated room type', async () => {
         room_type = "Suite 1 Updated";
-        let res = await request(sails.hooks.http.app)
+        let res = await request('http://localhost:1337')
           .put('/room-types')
           .send({
             _id,
@@ -125,7 +68,7 @@ describe('Room Type Controller', () => {
 
   describe('Delete Room Type By Id', () => {
     it('should return deleted room type', async () => {
-        let res = await request(sails.hooks.http.app)
+        let res = await request('http://localhost:1337')
           .delete('/room-types/' + _id)
 
         // console.debug(res)

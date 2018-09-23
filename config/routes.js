@@ -46,6 +46,14 @@ module.exports.routes = {
   'DELETE /rooms/:id': 'RoomController.deleteRoom',
 
 
+  /***************************************************************************
+   *                                User                                     *
+   ***************************************************************************/
+
+  'POST /users': 'UserController.createUser',
+  'GET /users/:id?': 'UserController.getUser',
+  'PUT /users': 'UserController.updateUser',
+  'DELETE /users/:id': 'UserController.deleteUser',
 
 
 

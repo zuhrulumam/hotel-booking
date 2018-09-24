@@ -52,6 +52,7 @@ describe('Booking Controller', () => {
         let room = await request('http://localhost:1337')
           .post('/rooms')
           .send({
+            name: "Test Room For Booking",
             type: model.type,
             price: 27000
           })
@@ -144,7 +145,7 @@ describe('Booking Controller', () => {
           .delete('/bookings/' + _id)
 
         expect(res.statusCode).toBe(200)
-        expect(res.body.user_id).toEqual(model.user_id)
+        expect(res.body.id).toEqual(model._id)
       }
 
     );

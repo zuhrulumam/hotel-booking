@@ -18,7 +18,7 @@ module.exports = {
     },
 
     room_id: {
-      model: 'Room'
+      model: 'Room',
     },
 
     date_start: {

@@ -1,3 +1,6 @@
+// later token will change into JWT
+// for now its just plain text
+
 module.exports = {
   signup: async (req, res, next) => {
     const data = req.body;

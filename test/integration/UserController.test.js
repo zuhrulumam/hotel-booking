@@ -6,15 +6,16 @@ let model = {
   password: "asdasd",
   role: "user",
 }
+
 describe('User Controller', () => {
 
   describe('Get All', () => {
     it('should return empty', async () => {
         let res = await request('http://localhost:1337')
-          .get('/users');
+          .get('/users')
+          .set('Authorization', 'Bearer tokenforadmin');
 
-        expect(res.statusCode).toBe(200)
-        expect(res.body.data).toEqual([])
+        expect(res.statusCode).toBe(200);
       }
 
     );
@@ -25,6 +26,7 @@ describe('User Controller', () => {
         let res = await request('http://localhost:1337')
           .post('/users')
           .send(model)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         _id = res.body.id;
 
@@ -39,7 +41,7 @@ describe('User Controller', () => {
     it('should return one User', async () => {
         let res = await request('http://localhost:1337')
           .get('/users/' + _id)
-
+          .set('Authorization', 'Bearer tokenforadmin');
 
         expect(res.statusCode).toBe(200)
         expect(res.body.email).toEqual(model.email)
@@ -54,7 +56,8 @@ describe('User Controller', () => {
         model._id = _id;
         let res = await request('http://localhost:1337')
           .put('/users')
-          .send(model);
+          .send(model)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         expect(res.statusCode).toBe(200)
         expect(res.body.email).toEqual(model.email)
@@ -67,6 +70,7 @@ describe('User Controller', () => {
     it('should return deleted User', async () => {
         let res = await request('http://localhost:1337')
           .delete('/users/' + _id)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         expect(res.statusCode).toBe(200)
         expect(res.body.email).toEqual(model.email)

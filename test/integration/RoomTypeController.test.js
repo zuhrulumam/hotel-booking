@@ -7,11 +7,11 @@ describe('Room Type Controller', () => {
   describe('Get All', () => {
     it('should return empty', async () => {
         let res = await request('http://localhost:1337')
-          .get('/room-types');
+          .get('/room-types')
+          .set('Authorization', 'Bearer tokenforadmin');
 
         // console.debug(res)
-        expect(res.statusCode).toBe(200)
-        expect(res.body.data).toEqual([])
+        expect(res.statusCode).toBe(200);
       }
 
     );
@@ -24,6 +24,7 @@ describe('Room Type Controller', () => {
           .send({
             room_type
           })
+          .set('Authorization', 'Bearer tokenforadmin');
 
         _id = res.body.id;
 
@@ -39,6 +40,7 @@ describe('Room Type Controller', () => {
     it('should return one room type', async () => {
         let res = await request('http://localhost:1337')
           .get('/room-types/' + _id)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         // console.debug(res)
         expect(res.statusCode).toBe(200)
@@ -56,7 +58,8 @@ describe('Room Type Controller', () => {
           .send({
             _id,
             room_type
-          });
+          })
+          .set('Authorization', 'Bearer tokenforadmin');
 
         // console.debug(res)
         expect(res.statusCode).toBe(200)
@@ -70,6 +73,7 @@ describe('Room Type Controller', () => {
     it('should return deleted room type', async () => {
         let res = await request('http://localhost:1337')
           .delete('/room-types/' + _id)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         // console.debug(res)
         expect(res.statusCode).toBe(200)

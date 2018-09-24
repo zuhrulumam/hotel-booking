@@ -16,10 +16,10 @@ describe('Booking Controller', () => {
   describe('Get All', () => {
     it('should return empty', async () => {
         let res = await request('http://localhost:1337')
-          .get('/bookings');
+          .get('/bookings')
+          .set('Authorization', 'Bearer tokenforadmin');;
 
-        expect(res.statusCode).toBe(200)
-        expect(res.body.data).toEqual([])
+        expect(res.statusCode).toBe(200);
       }
 
     );
@@ -34,7 +34,8 @@ describe('Booking Controller', () => {
           .send({
             email: "testuser@test.com",
             password: "test"
-          });
+          })
+          .set('Authorization', 'Bearer tokenforadmin');
 
         model.user_id = user.body.id;
         model.email = user.body.email;
@@ -44,7 +45,8 @@ describe('Booking Controller', () => {
           .post('/room-types')
           .send({
             room_type: "Test Room Type For Booking"
-          });
+          })
+          .set('Authorization', 'Bearer tokenforadmin');
 
         model.type = roomType.body.id;
 
@@ -56,6 +58,7 @@ describe('Booking Controller', () => {
             type: model.type,
             price: 27000
           })
+          .set('Authorization', 'Bearer tokenforadmin');
 
         model.room_id = room.body.id;
         model.price = 27000;
@@ -63,6 +66,7 @@ describe('Booking Controller', () => {
         let res = await request('http://localhost:1337')
           .post('/bookings')
           .send(model)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         _id = res.body.id;
 
@@ -77,7 +81,8 @@ describe('Booking Controller', () => {
   describe('Get One Booking By Id', () => {
     it('should return one Booking', async () => {
         let res = await request('http://localhost:1337')
-          .get('/bookings/' + _id);
+          .get('/bookings/' + _id)
+          .set('Authorization', 'Bearer tokenforadmin');;
 
         expect(res.statusCode).toBe(200);
         expect(res.body.user_id.email).toEqual(model.email)
@@ -94,7 +99,8 @@ describe('Booking Controller', () => {
         model._id = _id;
         let res = await request('http://localhost:1337')
           .put('/bookings')
-          .send(model);
+          .send(model)
+          .set('Authorization', 'Bearer tokenforadmin');;
 
         expect(res.statusCode).toBe(200)
         expect(res.body.user_id).toEqual(model.user_id)
@@ -108,7 +114,8 @@ describe('Booking Controller', () => {
       model.status = 'done';
       let res = await request('http://localhost:1337')
         .put('/booking-status')
-        .send(model);
+        .send(model)
+        .set('Authorization', 'Bearer tokenforadmin');;
 
       expect(res.statusCode).toBe(200);
       expect(res.body.status).toEqual(model.status);
@@ -120,7 +127,8 @@ describe('Booking Controller', () => {
       model.status = 'canceled';
       let res = await request('http://localhost:1337')
         .put('/booking-status')
-        .send(model);
+        .send(model)
+        .set('Authorization', 'Bearer tokenforadmin');;
 
       expect(res.statusCode).toBe(200);
       expect(res.body.status).toEqual(model.status);
@@ -132,17 +140,20 @@ describe('Booking Controller', () => {
         //delete user
         let user = await request('http://localhost:1337')
           .delete('/users/' + model.user_id)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         //delete roomType
         let roomType = await request('http://localhost:1337')
           .delete('/room-types/' + model.type)
-
+          .set('Authorization', 'Bearer tokenforadmin');
         //delete room
         let room = await request('http://localhost:1337')
           .delete('/rooms/' + model.room_id)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         let res = await request('http://localhost:1337')
           .delete('/bookings/' + _id)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         expect(res.statusCode).toBe(200)
         expect(res.body.id).toEqual(model._id)

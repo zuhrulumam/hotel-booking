@@ -13,7 +13,7 @@ module.exports = {
       .fetch();
 
     // return token for auth
-    let token = 'token for user';
+    let token = 'tokenforuser';
     const expiresIn = '3h';
 
     res.status(201);
@@ -39,7 +39,7 @@ module.exports = {
       }
 
       // return token for auth
-      let token = 'token for ' + user.role;
+      let token = 'tokenfor' + user.role;
       const expiresIn = '3h';
 
       return res.json({

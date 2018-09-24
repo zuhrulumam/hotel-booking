@@ -14,10 +14,10 @@ describe('Room Controller', () => {
   describe('Get All', () => {
     it('should return empty', async () => {
         let res = await request('http://localhost:1337')
-          .get('/rooms');
+          .get('/rooms')
+          .set('Authorization', 'Bearer tokenforadmin');;
 
         expect(res.statusCode).toBe(200)
-        expect(res.body.data).toEqual([])
       }
 
     );
@@ -30,13 +30,15 @@ describe('Room Controller', () => {
           .post('/room-types')
           .send({
             room_type: model.type_name
-          });
+          })
+          .set('Authorization', 'Bearer tokenforadmin');
 
         model.type = roomType.body.id;
 
         let res = await request('http://localhost:1337')
           .post('/rooms')
           .send(model)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         _id = res.body.id;
 
@@ -50,7 +52,8 @@ describe('Room Controller', () => {
   describe('Get One Room By Id', () => {
     it('should return one Room', async () => {
         let res = await request('http://localhost:1337')
-          .get('/rooms/' + _id);
+          .get('/rooms/' + _id)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         expect(res.statusCode).toBe(200)
         expect(res.body.price).toEqual(model.price)
@@ -66,7 +69,8 @@ describe('Room Controller', () => {
         model._id = _id;
         let res = await request('http://localhost:1337')
           .put('/rooms')
-          .send(model);
+          .send(model)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         expect(res.statusCode).toBe(200)
         expect(res.body.price).toEqual(model.price)
@@ -80,9 +84,11 @@ describe('Room Controller', () => {
 
         let delRoomType = await request('http://localhost:1337')
           .delete('/room-types/' + model.type)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         let res = await request('http://localhost:1337')
           .delete('/rooms/' + _id)
+          .set('Authorization', 'Bearer tokenforadmin');
 
         expect(res.statusCode).toBe(200)
         expect(res.body.price).toEqual(model.price)
@@ -99,7 +105,8 @@ describe('Room Controller', () => {
         .send({
           email: "testuser@test.com",
           password: "test"
-        });
+        })
+        .set('Authorization', 'Bearer tokenforadmin');
 
       model.user_id = user.body.id;
 
@@ -109,7 +116,8 @@ describe('Room Controller', () => {
         .post('/room-types')
         .send({
           room_type: model.type_name
-        });
+        })
+        .set('Authorization', 'Bearer tokenforadmin');
 
       model.type = roomType.body.id;
 
@@ -123,14 +131,15 @@ describe('Room Controller', () => {
             name: model.name + " " + i,
             type: model.type,
             price: model.price + (i * 2000)
-          });
+          })
+          .set('Authorization', 'Bearer tokenforadmin');
 
         rooms.push(currRoom.body);
       }
 
       model.room_id = rooms[0].id;
 
-      console.log("room id", model.room_id)
+      // console.log("room id", model.room_id)
 
       // book 1 rooms
       let date_start = new Date();
@@ -141,8 +150,9 @@ describe('Room Controller', () => {
       let booked = await request('http://localhost:1337')
         .post('/bookings')
         .send(model)
+        .set('Authorization', 'Bearer tokenforadmin');
 
-      console.log("booked id", booked.body.room_id)
+      // console.log("booked id", booked.body.room_id)
 
       expect(booked.statusCode).toBe(201);
     })
@@ -157,12 +167,11 @@ describe('Room Controller', () => {
         .get(
           '/available-rooms?start_date=' + model.date_start + '&&end_date=' + model.date_end
         )
+        .set('Authorization', 'Bearer tokenforadmin');
 
-      console.log(res.body)
+      // console.log(res.body)
       // expect return array of 2 rooms
-      // expect to one of arrai is the room type
-      // let res = await request('http://localhost:1337')
-      //   .get('/available-rooms');
+      // expect to one of array is the room type
 
       expect(res.statusCode).toBe(200)
     })

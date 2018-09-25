@@ -130,5 +130,5 @@ lib-cov
 *.out
 *.pid
 
-summary
+summary.txt
 

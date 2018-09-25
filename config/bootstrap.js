@@ -11,6 +11,8 @@
 
 module.exports.bootstrap = async function (done) {
 
+  process.env.TZ = 'Asia/Jakarta';
+
   // By convention, this is a good place to set up fake data during development.
   //
   // For example:

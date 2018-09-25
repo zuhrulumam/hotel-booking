@@ -9,8 +9,32 @@ module.exports = {
   // get available room for particular day
   getAvailableRoom: async (req, res, next) => {
     const queries = req.query;
-    const start_date = queries.start_date;
-    const end_date = queries.end_date;
+    const start_date = new Date(queries.start_date);
+    const end_date = new Date(queries.end_date);
+
+    const now = new Date();
+
+    // when user choose date before this date
+    if (start_date) {
+
+      if (start_date.getTime() < now.getTime()) {
+        return next({
+          err: 'You Probably Want choose more than yesterday'
+        })
+      }
+
+    }
+
+    if (end_date) {
+
+      if (end_date.getTime() < now.getTime()) {
+        return next({
+          err: 'You Probably Want choose more than yesterday'
+        })
+      }
+
+    }
+
 
     //  get all rooms populate booking, choose one that null or the date and quantity available
     // let rooms = await Room.find()
@@ -35,10 +59,25 @@ module.exports = {
       .populate('room_booking')
 
     let availableRoom = rooms.reduce((result, room) => {
+
       if (room.room_booking.length === 0) {
         result.push(room);
       } else {
         // loop for booking
+        room.room_booking.forEach(booking => {
+          // user can only choose when the start date more than the date_end
+          let currDateEnd = new Date(booking.date_end);
+          if (start_date) {
+            if (start_date.getTime() > currDateEnd.getTime()) {
+              return result.push(room);
+            }
+
+            // other than that user can book when the quantity of booking less than total quantity of room
+          }
+
+
+
+        });
       }
       return result;
     }, []);

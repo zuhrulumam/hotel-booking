@@ -29,7 +29,6 @@ module.exports = {
 
     // check if room available (from quantity to date)
 
-
     let createdBooking = await Booking.create({
         user_id: data.user_id,
         room_id: data.room_id,
@@ -80,7 +79,21 @@ module.exports = {
   updateBooking: async (req, res, next) => {
     const data = req.body;
 
-    let booking = await Booking.update({
+    // check if the booking date is before now
+    let booking = await Booking.findOne({
+      id: data._id
+    });
+
+    let booking_date = new Date(booking.date_start);
+    let now = new Date();
+
+    if (booking_date.getTime() < now.getTime()) {
+      return res.status(500).json({
+        err: 'cant update because already start booking'
+      });
+    }
+
+    let updated = await Booking.update({
         id: data._id
       }, {
         /* model */
@@ -91,7 +104,7 @@ module.exports = {
       })
       .fetch();
 
-    return res.json(booking[0]);
+    return res.json(updated[0]);
   },
 
   // Delete Booking

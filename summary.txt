@@ -1,0 +1,43 @@
+How To Run
+1. edit mongodb credensial on 
+config/datastores 
+or 
+if you copy from my zip it'll be config/local.js
+
+2. node app.js
+
+if you don't mind.
+
+here i will tell about how i progress with this code
+
+What i've done
+1. I'm doing my first TDD development technique (with jest), so it took one and half day to only learn and implement it (I still not sure if my TDD is right though, it still need to run the server manually then the test, in my mind it should do them automatically, but time is up so i'll do with this kind of approach)
+
+2. Functional : CRUD Room, CRUD Room Type, CRUD User, CRUD Booking, Authentication and Authorization (it's still plain token, it should use JWT for production)
+
+3. Adding functional : 
+- Can cancel Booking
+- Can List available room 
+
+What could not be done and how to complete it
+1. Need to implement more testing
+
+2. I'm not yet implement error caching, i need more time if i want to implement it
+
+3. implement JWT Authorization, need more time to implement it
+
+4. implement bcrypt for password hasing, again i need more time if i want to implement it
+
+5. User can booked if quantity of booked room less than total room quantity
+
+6. Queue-integrated system that ensures that no more than one customer​ book​ at the same time and Support records of changes of the rooms​ for​ audit trail (transparent to Administrator​ and Customer, i don't have any idea yet about this, i need to research it first.
+
+7. I'm still using NoSql database, because i'm not yet setup SQL database on my current laptop.
+
+8. lastly, it's still need a lot of improvement especially on booking because it's still have a lot of conditions on actual environtment.
+
+And this what i can do for the given task. and i'm sorry that i'm not yet touch the frontend side, because i've been really full with the backend side.
+
+Thank You 
+Regards,
+Muhammad Zuhrul Umam

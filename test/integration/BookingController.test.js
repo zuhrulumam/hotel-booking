@@ -7,8 +7,8 @@ let _id;
 let model = {
   user: "test",
   room: "test",
-  date_start,
-  date_end: date_end.setDate(date_start.getDate() + 3),
+  date_start: date_start.setDate(date_start.getDate() + 3),
+  date_end: date_end.setDate(date_start.getDate() + 10),
 }
 
 describe('Booking Controller', () => {
@@ -32,7 +32,7 @@ describe('Booking Controller', () => {
         let user = await request('http://localhost:1337')
           .post('/users')
           .send({
-            email: "testuser@test.com",
+            email: "testuserbooking@test.com",
             password: "test"
           })
           .set('Authorization', 'Bearer tokenforadmin');
